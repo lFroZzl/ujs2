@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Posts</h1>
+
+<%= form_with(model: @post) do |form| %>
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :content %>
+    <%= form.text_field :content %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Guardar", data: { disable_with: 'Guardando....' } %>
+  </div>
+<% end %>
+
+<hr/>
+
+<table id="my_posts">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Content</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @posts.each do |post| %>
+      <tr>
+        <td><%= post.title %></td>
+        <td><%= post.content %></td>
+        <td><%= link_to 'Show', post %></td>
+        <td><%= link_to 'Edit', edit_post_path(post) %></td>
+        <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+
+    <% @posts.each do |post| %>
+      <%= render 'tr', post: post %>
+    <% end %>
+
+    <%= render @posts %>
+    
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Post', new_post_path %>
